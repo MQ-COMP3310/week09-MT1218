@@ -13,6 +13,7 @@ def login():
 @auth.route('/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
+    # hash the password here don't compare the plaintext version - password = md5hash(request.form.get('password'))
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
@@ -37,13 +38,14 @@ def signup():
 def signup_post():
     email = request.form.get('email')
     name = request.form.get('name')
+    # hash password here using something like md5 e.g. password = md5hash(request.form.get('password'))
     password = request.form.get('password')
 
     user = db.session.execute(
         text('SELECT * FROM user WHERE email = :email'),
         {'email': email}
     ).all()
-    
+
     if len(user) > 0: # if a user is found, we want to redirect back to signup page so user can try again
         flash('Email address already exists')  # 'flash' function stores a message accessible in the template code.
         app.logger.debug("User email already exists")

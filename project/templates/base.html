@@ -20,6 +20,8 @@
                             <a href="{{ url_for('main.index') }}" class="navbar-item">
                                 Home
                             </a>
+<!-- uses the current_user.is_authenticated variable to determine whether or not to show the Profile, Login, Signup
+  and/or the Logout buttons-->
 {% if current_user.is_authenticated %}
                             <a href="{{ url_for('main.profile') }}" class="navbar-item">
                                 Profile
